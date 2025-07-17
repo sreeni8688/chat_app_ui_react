@@ -1,0 +1,23 @@
+.mention-list {
+  z-index: 999;
+  top: -100px;
+  left: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  list-style: none;
+  width: 200px;
+}
+
+.mention-item {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mention-item:hover {
+  background-color: #f0f0f0;
+}
+.zindex-dropdown {
+  z-index: 1050;
+  max-height: 200px;
+  overflow-y: auto;
+}

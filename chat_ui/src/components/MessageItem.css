@@ -1,0 +1,122 @@
+.message-row {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.message-row.me {
+  justify-content: flex-end;
+}
+
+.message-row.other {
+  justify-content: flex-start;
+}
+
+.message-box {
+  max-width: 70%;
+  padding: 1rem;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 🌊 Cool teal gradient for sender */
+.me-box {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #003b4f;
+  border-top-right-radius: 0;
+}
+
+/* 🧊 Soft lavender-blue for receiver */
+.other-box {
+  background-color: #e0f7fa;
+  color: #003b4f;
+  border-top-left-radius: 0;
+}
+
+.sender-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: inherit;
+}
+
+.message-text {
+  font-size: 1rem;
+  color: inherit;
+}
+
+/* ❄️ Reply preview block */
+.reply-preview {
+  background-color: #f0faff;
+  border-left: 4px solid #00acc1;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  max-width: 80%;
+  color: #004d61;
+}
+
+/* 📄 PDF link in cool tone */
+.pdf-link {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #1565c0;
+  background-color: #e3f2fd;
+  padding: 0.4rem 0.6rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.pdf-link:hover {
+  background-color: #d0e8ff;
+  text-decoration: underline;
+}
+
+/* 🖼️ Image */
+.img-thumbnail {
+  max-width: 150px;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+/* 🖼️ Reply preview image */
+.reply-image-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* ↩️ Reply button with cool feel */
+.btn-reply {
+  background-color: rgba(173, 216, 230, 0.2);
+  color: #003b4f;
+  border: none;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-reply:hover {
+  background-color: rgba(173, 216, 230, 0.4);
+  color: #003b4f;
+}
+.highlight {
+  animation: highlight-fade 2s ease;
+  border: 2px solid #00bcd4;
+  border-radius: 10px;
+  background-color: #e0f7fa !important;
+}
+
+@keyframes highlight-fade {
+  from {
+    background-color: #b2ebf2;
+  }
+  to {
+    background-color: transparent;
+  }
+}

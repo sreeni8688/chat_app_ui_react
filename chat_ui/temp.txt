@@ -1,0 +1,96 @@
+------------
+
+import React, { useState, useRef } from 'react';
+import { socket } from '../utils/socket';
+import axios from 'axios';
+
+const MessageInput = ({ chatId, currentUser, replyTo, clearReplyTo }) => {
+  const [text, setText] = useState('');
+  const [files, setFiles] = useState([]);
+  const fileInputRef = useRef(null); // 🆕 Reference for resetting file input
+
+  const handleSend = async () => {
+    if (!chatId) {
+      alert("Chat room not selected!");
+      return;
+    }
+
+    if (!text && files.length === 0) {
+      alert("Please enter a message or upload files.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('chatRoomId', chatId);
+    formData.append('text', text);
+    if (replyTo) formData.append('replyTo', replyTo._id);
+
+    files.forEach(file => {
+      formData.append('attachments', file);
+    });
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/message/send', formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      // Emit the message to the socket server
+      socket.emit('sendMessage', {
+        chatRoomId: chatId,
+        senderId: currentUser._id,
+        text,
+        replyTo: replyTo?._id,
+        attachments: res.data.attachments || []
+      });
+
+      // ✅ Reset inputs
+      setText('');
+      setFiles([]);
+      clearReplyTo();
+      if (fileInputRef.current) fileInputRef.current.value = ''; // Clear file input
+
+    } catch (err) {
+      console.error('❌ Message send failed:', err.response?.data || err.message);
+      alert('Failed to send message. Check the console for more info.');
+    }
+  };
+
+  return (
+    <div className="d-flex flex-column gap-2 mt-2">
+      {replyTo && (
+        <div className="bg-light p-2 border rounded position-relative">
+          <small>Replying to: {replyTo.text}</small>
+          <button
+            className="btn-close position-absolute end-0 top-0 m-2"
+            onClick={clearReplyTo}
+            title="Cancel reply"
+          ></button>
+        </div>
+      )}
+      <input
+        type="file"
+        multiple
+        ref={fileInputRef} // 🆕 Attach ref here
+        onChange={(e) => setFiles(Array.from(e.target.files))}
+        className="form-control"
+      />
+      <div className="d-flex">
+        <input
+          type="text"
+          placeholder="Type your message"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="form-control me-2"
+        />
+        <button onClick={handleSend} className="btn btn-primary">Send</button>
+      </div>
+    </div>
+  );
+};
+
+export default MessageInput;
+
+------------------------------------------------message-input1;
