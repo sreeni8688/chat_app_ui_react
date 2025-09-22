@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import ChatWindow from "../components/ChatWindow";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ChatPage = () => {
   const [chats, setChats] = useState([]);
@@ -20,9 +21,9 @@ const ChatPage = () => {
 
         const headers = { Authorization: `Bearer ${token}` };
         const [userRes, chatsRes, usersRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/auth/me", { headers }),
-          axios.get("http://localhost:5000/api/chat", { headers }),
-          axios.get("http://localhost:5000/api/users", { headers }),
+          axios.get(`${apiUrl}/api/auth/me`, { headers }),
+          axios.get(`${apiUrl}/api/chat`, { headers }),
+          axios.get(`${apiUrl}/api/users`, { headers }),
         ]);
 
         setCurrentUser(userRes.data);
