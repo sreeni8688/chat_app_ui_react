@@ -3,6 +3,7 @@ import axios from 'axios';
 import { socket } from '../utils/socket';
 import MessageItem from './MessageItem';
 import MessageInput from './MessageInput';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ChatWindow = ({ chat, currentUser,allUsers, onUserMention }) => {
   const [messages, setMessages] = useState([]);
@@ -35,7 +36,7 @@ const ChatWindow = ({ chat, currentUser,allUsers, onUserMention }) => {
 
   const fetchMessages = async (chatRoomId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/message/${chatRoomId}`, {
+      const res = await axios.get(`${apiUrl}/api/message/${chatRoomId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setMessages(res.data);
