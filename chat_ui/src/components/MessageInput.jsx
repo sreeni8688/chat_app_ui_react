@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { socket } from '../utils/socket';
 import axios from 'axios';
 import { FaUserCircle } from 'react-icons/fa';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const MAX_FILES = 5;
 
@@ -26,7 +27,7 @@ const MessageInput = ({ chatId, currentUser, replyTo, clearReplyTo, allUsers }) 
     files.forEach(file => formData.append('attachments', file));
 
     try {
-      const res = await axios.post('http://localhost:5000/api/message/send', formData, {
+      const res = await axios.post(`${apiUrl}/api/message/send`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
