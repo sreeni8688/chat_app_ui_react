@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("${apiUrl}/api/auth/register", form);
+      await axios.post(`${apiUrl}/api/auth/register`, form);
       
       navigate("/login");
     } catch (err) {
