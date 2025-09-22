@@ -1,6 +1,7 @@
 import React from 'react';
 import './MessageItem.css';
 import { BsReply, BsFileEarmarkPdfFill } from 'react-icons/bs';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const MessageItem = ({ msg, currentUser, onReply, onReplyClick, onMentionClick }) => {
   const isMe = msg.sender._id === currentUser._id;
@@ -47,7 +48,7 @@ const MessageItem = ({ msg, currentUser, onReply, onReplyClick, onMentionClick }
           {replyAttachment ? (
             replyAttachment.fileType === 'image' ? (
               <img
-                src={`http://localhost:5000${replyAttachment.fileUrl}`}
+                src={`${apiUrl}{replyAttachment.fileUrl}`}
                 alt="reply-preview"
                 className="reply-image-thumb"
               />
@@ -87,13 +88,13 @@ const MessageItem = ({ msg, currentUser, onReply, onReplyClick, onMentionClick }
               <div key={file.fileUrl} className="attachment-item">
                 {file.fileType === 'image' ? (
                   <img
-                    src={`http://localhost:5000${file.fileUrl}`}
+                    src={`${apiUrl}${file.fileUrl}`}
                     alt={file.fileName}
                     className="img-thumbnail"
                   />
                 ) : (
                   <a
-                    href={`http://localhost:5000${file.fileUrl}`}
+                    href={`${apiUrl}${file.fileUrl}`}
                     target="_blank"
                     rel="noreferrer"
                     className="pdf-link"
