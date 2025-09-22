@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const LoginPage = () => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -9,8 +10,8 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', form);
-      console.log(res.data);
+      const res = await axios.post(`${apiUrl}/api/auth/login`, form);
+      
       localStorage.setItem('token', res.data.token);
       navigate("/chat")
       
