@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const UserListSidebar = ({ currentUser, onStartChat }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axios.get(`${apiUrl}/api/users`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       // Exclude current user
